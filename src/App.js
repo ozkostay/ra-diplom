@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
+import Home from './components/Home';
+import Layout from './components/Layout';
+import Page404 from './components/Page404';
+import About from './components/About';
+import Contacts from './components/Contacts';
+// "bootstrap": "^5.2.3",
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/contacts' element={<Contacts />} />
+          {/* <Route path='/error' element={<Error />} />
+          <Route path='/service/:serviceId' element={<ServiceInfo />} /> */}
+          <Route path='*' element={<Page404 />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
+
+// Главная
+// /catalog
+// /about.
+// /contacts
+// Страница товара
+// Корзина
+// 404
 
 export default App;
