@@ -11,9 +11,9 @@ export default function Layout() {
     <>
       <Header />
 
-      <main class="container">
-        <div class="row">
-          <div class="col">
+      <main className="container">
+        <div className="row">
+          <div className="col">
             <Banner />
             <Outlet />
           </div>
