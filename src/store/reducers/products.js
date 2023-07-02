@@ -8,7 +8,7 @@ import {
   LIST_CATALOG_REQUEST,
   LIST_CATALOG_SUCCESS,
   LIST_CATALOG_ERROR
-} from './actions/actionTypes';
+} from '../actions/actionTypes';
 
 const initialState = {
   products: [],
