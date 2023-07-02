@@ -10,7 +10,6 @@ export default function Layout() {
   return (
     <>
       <Header />
-
       <main className="container">
         <div className="row">
           <div className="col">
