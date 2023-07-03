@@ -1,10 +1,10 @@
-import { takeLatest, put, spawn, debounce, retry } from 'redux-saga/effects';
+import { takeLatest, put, spawn, debounce, retry } from "redux-saga/effects";
 
 import {
   listProductsRequest,
   listProductsSuccess,
   listProductsError,
-} from '../actions/actionCreators';
+} from "../actions/actionCreators";
 
 import {
   HITS_REQUEST,
@@ -15,14 +15,14 @@ import {
   CATEGORIES_ERROR,
   LIST_CATALOG_REQUEST,
   LIST_CATALOG_SUCCESS,
-  LIST_CATALOG_ERROR
-} from '../actions/actionTypes';
+  LIST_CATALOG_ERROR,
+} from "../actions/actionTypes";
 
- import { searchProducts } from '../api/searchProducts';
+import { searchProducts } from "../api/searchProducts";
 
- // import { searchItem } from '../api/searchItem';
+// import { searchItem } from '../api/searchItem';
 
- // import { act } from 'react-dom/test-utils';
+// import { act } from 'react-dom/test-utils';
 
 // function filterChangeSearchAction({ type, payload}) {
 //   return type === CHANGE_SEARCH_FIELD && payload.search.trim() !== '';
@@ -42,14 +42,14 @@ function* handleSearchProductsSaga(action) {
       retryCount,
       retryDelay,
       searchProducts,
-      action.payload.search
-    )
+      action.payload.aaa
+    );
     yield put(listProductsSuccess(data));
   } catch (e) {
     yield put(listProductsError(e.massage));
   }
 }
-  
+
 // function* handleSearchItemSaga(action) {
 //   // console.log('777', action);
 //   try {

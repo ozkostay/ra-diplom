@@ -7,8 +7,8 @@ import {
   CATEGORIES_ERROR,
   LIST_CATALOG_REQUEST,
   LIST_CATALOG_SUCCESS,
-  LIST_CATALOG_ERROR
-} from './actionTypes';
+  LIST_CATALOG_ERROR,
+} from "./actionTypes";
 
 // export function listServicesRequest() {
 // return { type: HITS_REQUEST, payload: {} }
@@ -28,12 +28,13 @@ import {
 // export function itemServiseRequest(id) {
 // return { type: CATEGORIES_ERROR, payload: {} }
 // }
-export function listProductsRequest() {
-return { type: LIST_CATALOG_REQUEST, payload: {} }
+export function listProductsRequest(aaa) {
+  console.log("AAA", aaa);
+  return { type: LIST_CATALOG_REQUEST, payload: { aaa } };
 }
 export function listProductsSuccess(products) {
-return { type: LIST_CATALOG_SUCCESS, payload: {products} }
+  return { type: LIST_CATALOG_SUCCESS, payload: { products } };
 }
 export function listProductsError(id) {
-return { type: LIST_CATALOG_ERROR, payload: {} }
+  return { type: LIST_CATALOG_ERROR, payload: {} };
 }
