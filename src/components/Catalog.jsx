@@ -2,6 +2,7 @@ import React, { startTransition, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { listProductsRequest } from "../store/actions/actionCreators";
 import CatalogItem from "./CatalogItem";
+import Categories from './Categories';
 
 export default function Catalog() {
   const { products, loading, error } = useSelector((state) => state.products);
@@ -18,33 +19,7 @@ export default function Catalog() {
         <form className="catalog-search-form form-inline">
           <input className="form-control" placeholder="Поиск" />
         </form>
-        <ul className="catalog-categories nav justify-content-center">
-          <li className="nav-item">
-            <a className="nav-link active" href="#">
-              Все
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Женская обувь
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Мужская обувь
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Обувь унисекс
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Детская обувь
-            </a>
-          </li>
-        </ul>
+        <Categories />
         <div className="row">
           {products.map((item) => (
             <CatalogItem key={item.id} item={item} />
