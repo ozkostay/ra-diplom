@@ -2,15 +2,24 @@ import React, { startTransition, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { listProductsRequest } from "../store/actions/actionCreators";
 import CatalogItem from "./CatalogItem";
-import Categories from './Categories';
+import Categories from "./Categories";
 
 export default function Catalog() {
   const { products, loading, error } = useSelector((state) => state.products);
+  const { currentCategory } = useSelector((state) => state.categories);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(listProductsRequest("items"));
-  }, []);
+    console.log("currentCategory", currentCategory);
+    let currCat = "";
+    let questionMark = "";
+    if (currentCategory !== 0) {
+      currCat = "categoryId=" + currentCategory;
+      questionMark = "?";
+    }
+    console.log("currCat", currCat);
+    dispatch(listProductsRequest(`items${questionMark}${currCat}`));
+  }, [currentCategory]);
 
   return (
     <>

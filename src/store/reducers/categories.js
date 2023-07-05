@@ -15,7 +15,7 @@ const initialState = {
   categories: [],
   loading: false,
   error: null,
-  currentСategory: 0,
+  currentCategory: 0,
 };
 
 export default function categoriesReducer(state = initialState, action) {
@@ -29,7 +29,7 @@ export default function categoriesReducer(state = initialState, action) {
     case CATEGORIES_ERROR:
       return { ...state, loading: false, error: true };
     case CHANGE_CURRENT_CATEGORY:
-      return { ...state, currentСategory: action.payload };
+      return { ...state, currentCategory: action.payload };
     default:
       return state;
   }

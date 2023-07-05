@@ -1,13 +1,13 @@
 import React from "react";
 
 export default function CatalogItem({ item }) {
-  const stylePic = { 
+  const stylePic = {
     height: 480,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     // border: '1px solid black'
-  }
+  };
 
   return (
     <>
@@ -23,7 +23,8 @@ export default function CatalogItem({ item }) {
 
           <div className="card-body">
             <p className="card-text">{item.title}</p>
-            <p className="card-text">{item.price + ' руб.'}</p>
+            <p className="card-text">{item.category}</p>
+            <p className="card-text">{item.price + " руб."}</p>
             <a href="/products/1.html" className="btn btn-outline-primary">
               Заказать
             </a>
