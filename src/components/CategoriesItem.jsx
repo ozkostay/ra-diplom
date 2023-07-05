@@ -2,7 +2,7 @@ import React from "react";
 
 export default function CategoriesItem({
   item,
-  currentСategory,
+  currentCategory,
   changeCurrentCategory,
 }) {
   return (
@@ -10,7 +10,7 @@ export default function CategoriesItem({
       <li className="nav-item">
         <a
           className={
-            item.id === currentСategory ? "nav-link active" : "nav-link"
+            item.id === currentCategory ? "nav-link active" : "nav-link"
           }
           onClick={() => {
             changeCurrentCategory(item.id);

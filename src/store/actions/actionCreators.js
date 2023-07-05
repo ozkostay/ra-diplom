@@ -11,15 +11,15 @@ import {
   LIST_CATALOG_ERROR,
 } from "./actionTypes";
 
-// export function listServicesRequest() {
-// return { type: HITS_REQUEST, payload: {} }
-// }
-// export function listServicesSuccess(services) {
-// return { type: HITS_SUCCESS, payload: {} }
-// }
-// export function itemServiseRequest(id) {
-// return { type: HITS_ERROR, payload: {} }
-// }
+export function hitsRequest(param) {
+  return { type: HITS_REQUEST, payload: { param } };
+}
+export function hitsSuccess(hits) {
+  return { type: HITS_SUCCESS, payload: { hits } };
+}
+export function hitsError() {
+  return { type: HITS_ERROR, payload: {} };
+}
 export function categoriesRequest(param) {
   return { type: CATEGORIES_REQUEST, payload: { param } };
 }

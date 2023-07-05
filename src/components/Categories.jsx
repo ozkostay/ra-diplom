@@ -7,7 +7,7 @@ import {
 import CategoriesItem from "./CategoriesItem";
 
 export default function Categories() {
-  const { categories, loading, error, currentСategory } = useSelector(
+  const { categories, loading, error, currentCategory } = useSelector(
     (state) => state.categories
   );
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export default function Categories() {
           <CategoriesItem
             key={item.id}
             item={item}
-            currentСategory={currentСategory}
+            currentCategory={currentCategory}
             changeCurrentCategory={changeCurrentCategory}
           />
         ))}

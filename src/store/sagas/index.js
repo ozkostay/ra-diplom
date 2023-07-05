@@ -1,11 +1,12 @@
 import { takeLatest, put, spawn, debounce, retry } from "redux-saga/effects";
 
 import {
-  listProductsRequest,
   listProductsSuccess,
   listProductsError,
   categoriesSuccess,
   categoriesError,
+  hitsSuccess,
+  hitsError,
 } from "../actions/actionCreators";
 
 import {
@@ -22,6 +23,7 @@ import {
 
 import { searchProducts } from "../api/searchProducts";
 import { searchCategories } from "../api/searchCategories";
+import { searchHits } from "../api/searchHits";
 
 // import { searchItem } from '../api/searchItem';
 
@@ -36,8 +38,9 @@ import { searchCategories } from "../api/searchCategories";
 //   yield put(searchSkillsRequest(action.payload.search));
 // }
 
-// worker
+// worker;
 function* handleSearchProductsSaga(action) {
+  console.log("=======", action.type);
   try {
     const retryCount = 1;
     const retryDelay = 1 * 1000;
@@ -69,6 +72,22 @@ function* handleSearchCategoriesSaga(action) {
   }
 }
 
+function* handleSearchHitsSaga(action) {
+  try {
+    const retryCount = 1;
+    const retryDelay = 1 * 1000;
+    const data = yield retry(
+      retryCount,
+      retryDelay,
+      searchHits,
+      action.payload.param
+    );
+    yield put(hitsSuccess(data));
+  } catch (e) {
+    yield put(hitsError(e.massage));
+  }
+}
+
 // // watcher
 // function* watchChangeSearchSaga() {
 //   yield debounce(100, filterChangeSearchAction, handleChangeSearchSaga);
@@ -83,7 +102,12 @@ function* watchCategoriesSaga() {
   yield takeLatest(CATEGORIES_REQUEST, handleSearchCategoriesSaga);
 }
 
+function* watchHitsSaga() {
+  yield takeLatest(HITS_REQUEST, handleSearchHitsSaga);
+}
+
 export default function* saga() {
   yield spawn(watchListProductsSaga);
   yield spawn(watchCategoriesSaga);
+  yield spawn(watchHitsSaga);
 }
