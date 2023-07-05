@@ -4,6 +4,8 @@ import {
   listProductsRequest,
   listProductsSuccess,
   listProductsError,
+  categoriesSuccess,
+  categoriesError,
 } from "../actions/actionCreators";
 
 import {
@@ -19,6 +21,7 @@ import {
 } from "../actions/actionTypes";
 
 import { searchProducts } from "../api/searchProducts";
+import { searchCategories } from "../api/searchCategories";
 
 // import { searchItem } from '../api/searchItem';
 
@@ -42,7 +45,7 @@ function* handleSearchProductsSaga(action) {
       retryCount,
       retryDelay,
       searchProducts,
-      action.payload.aaa
+      action.payload.param
     );
     yield put(listProductsSuccess(data));
   } catch (e) {
@@ -50,22 +53,21 @@ function* handleSearchProductsSaga(action) {
   }
 }
 
-// function* handleSearchItemSaga(action) {
-//   // console.log('777', action);
-//   try {
-//     const retryCount = 1;
-//     const retryDelay = 1 * 1000;
-//     const data = yield retry(
-//       retryCount,
-//       retryDelay,
-//       searchItem,
-//       action.payload.id
-//     )
-//     yield put(itemServiseSuccess(data));
-//   } catch (e) {
-//     yield put(listProductsError(e.massage));
-//   }
-// }
+function* handleSearchCategoriesSaga(action) {
+  try {
+    const retryCount = 1;
+    const retryDelay = 1 * 1000;
+    const data = yield retry(
+      retryCount,
+      retryDelay,
+      searchCategories,
+      action.payload.param
+    );
+    yield put(categoriesSuccess(data));
+  } catch (e) {
+    yield put(categoriesError(e.massage));
+  }
+}
 
 // // watcher
 // function* watchChangeSearchSaga() {
@@ -77,11 +79,11 @@ function* watchListProductsSaga() {
   yield takeLatest(LIST_CATALOG_REQUEST, handleSearchProductsSaga);
 }
 
-// function* watchItemServiceSaga() {
-//   yield takeLatest(ITEM_SERVICE_REQUEST, handleSearchItemSaga);
-// }
+function* watchCategoriesSaga() {
+  yield takeLatest(CATEGORIES_REQUEST, handleSearchCategoriesSaga);
+}
 
 export default function* saga() {
   yield spawn(watchListProductsSaga);
-  // yield spawn(watchItemServiceSaga);
+  yield spawn(watchCategoriesSaga);
 }

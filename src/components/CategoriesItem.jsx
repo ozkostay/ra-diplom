@@ -1,14 +1,25 @@
-import React from 'react';
+import React from "react";
 
-export default function CategoriesItem({item}) {
-  
+export default function CategoriesItem({
+  item,
+  currentСategory,
+  changeCurrentCategory,
+}) {
   return (
     <>
       <li className="nav-item">
-        <a className={item.active ? "nav-link active" : "nav-link"} onClick={() => {console.log(item.id)}} href="#">
+        <a
+          className={
+            item.id === currentСategory ? "nav-link active" : "nav-link"
+          }
+          onClick={() => {
+            changeCurrentCategory(item.id);
+          }}
+          href="#"
+        >
           {item.title}
         </a>
       </li>
     </>
-  )
+  );
 }
