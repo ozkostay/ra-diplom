@@ -40,7 +40,7 @@ import { searchHits } from "../api/searchHits";
 
 // worker;
 function* handleSearchProductsSaga(action) {
-  console.log("=======", action.type);
+  //console.log("=======", action.type);
   try {
     const retryCount = 1;
     const retryDelay = 1 * 1000;

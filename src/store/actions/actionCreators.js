@@ -9,6 +9,7 @@ import {
   LIST_CATALOG_REQUEST,
   LIST_CATALOG_SUCCESS,
   LIST_CATALOG_ERROR,
+  SET_OFFSET
 } from "./actionTypes";
 
 export function hitsRequest(param) {
@@ -41,3 +42,7 @@ export function listProductsSuccess(products) {
 export function listProductsError() {
   return { type: LIST_CATALOG_ERROR, payload: {} };
 }
+export function setOffset(num) {
+  return { type: SET_OFFSET, payload: num };
+}
+

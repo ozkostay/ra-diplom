@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   categoriesRequest,
   changCurrentCategory,
+  setOffset
 } from "../store/actions/actionCreators";
 import CategoriesItem from "./CategoriesItem";
 
@@ -10,6 +11,7 @@ export default function Categories() {
   const { categories, loading, error, currentCategory } = useSelector(
     (state) => state.categories
   );
+  // const { offset } = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,6 +20,7 @@ export default function Categories() {
 
   function changeCurrentCategory(id) {
     dispatch(changCurrentCategory(id));
+    dispatch(setOffset(0));
   }
 
   return (

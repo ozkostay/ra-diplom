@@ -8,13 +8,14 @@ import {
   LIST_CATALOG_REQUEST,
   LIST_CATALOG_SUCCESS,
   LIST_CATALOG_ERROR,
+  SET_OFFSET
 } from "../actions/actionTypes";
 
 const initialState = {
   products: [],
   loading: false,
   error: null,
-  currentСategory: null,
+  offset: 0,
 };
 
 export default function productsReducer(state = initialState, action) {
@@ -26,6 +27,8 @@ export default function productsReducer(state = initialState, action) {
       return { ...state, products, loading: false, error: null };
     case LIST_CATALOG_ERROR:
       return { ...state, loading: false, error: true };
+    case SET_OFFSET:
+      return { ...state, offset: action.payload };
     default:
       return state;
   }
