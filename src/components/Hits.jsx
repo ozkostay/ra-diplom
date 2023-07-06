@@ -4,13 +4,6 @@ import { hitsRequest } from "../store/actions/actionCreators";
 import HitsItem from "./HitsItem";
 
 export default function Hits({ hits }) {
-  // const [hits, loading, error] = useSelector((state) => state.hits);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(hitsRequest(`top-sales`));
-  // }, []);
-
   return (
     <>
       <section className="top-sales">
