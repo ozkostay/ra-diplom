@@ -9,7 +9,8 @@ import {
   LIST_CATALOG_REQUEST,
   LIST_CATALOG_SUCCESS,
   LIST_CATALOG_ERROR,
-  SET_OFFSET
+  SET_OFFSET,
+  SET_FINDSTRING,
 } from "./actionTypes";
 
 export function hitsRequest(param) {
@@ -44,5 +45,9 @@ export function listProductsError() {
 }
 export function setOffset(num) {
   return { type: SET_OFFSET, payload: num };
+}
+export function setFindString(findString) {
+  console.log('actCreator SET_FINDSTRING', findString);
+  return { type: SET_FINDSTRING, payload: findString };
 }
 

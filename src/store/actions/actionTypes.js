@@ -12,6 +12,8 @@ export const LIST_CATALOG_REQUEST = "LIST_CATALOG_REQUEST";
 export const LIST_CATALOG_SUCCESS = "LIST_CATALOG_SUCCESS";
 export const LIST_CATALOG_ERROR = "LIST_CATALOG_ERROR";
 export const SET_OFFSET = "SET_OFFSET";
+export const SET_FINDSTRING = "SET_FINDSTRING";
+
 
 // // Пока не используем
 // // Список каталога по отдельной категории

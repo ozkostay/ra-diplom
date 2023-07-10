@@ -8,7 +8,8 @@ import {
   LIST_CATALOG_REQUEST,
   LIST_CATALOG_SUCCESS,
   LIST_CATALOG_ERROR,
-  SET_OFFSET
+  SET_OFFSET,
+  SET_FINDSTRING,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -16,9 +17,11 @@ const initialState = {
   loading: false,
   error: null,
   offset: 0,
+  findString: '',
 };
 
 export default function productsReducer(state = initialState, action) {
+  console.log('reduser ',action.type);
   switch (action.type) {
     case LIST_CATALOG_REQUEST:
       return { ...state, loading: true, error: null };
@@ -29,7 +32,11 @@ export default function productsReducer(state = initialState, action) {
       return { ...state, loading: false, error: true };
     case SET_OFFSET:
       return { ...state, offset: action.payload };
+    case SET_FINDSTRING:
+      console.log(222, action.payload);
+      return { ...state, findString: action.payload };
     default:
+      console.log('reduser-DEF');
       return state;
   }
 }

@@ -1,15 +1,17 @@
 import React, { startTransition, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { listProductsRequest, setOffset } from "../store/actions/actionCreators";
+import { listProductsRequest, setOffset, setFindString } from "../store/actions/actionCreators";
 import CatalogItem from "./CatalogItem";
 import Categories from "./Categories";
 
-export default function Catalog() {
-  const { products, loading, error, offset } = useSelector((state) => state.products);
+export default function Catalog(params) {
+  if (params.param) {
+    console.log(params);
+  }
+  
+  const { products, loading, error, offset, findString } = useSelector((state) => state.products);
   const { currentCategory } = useSelector((state) => state.categories);
-  const [findString, setFindString] = useState("");
-  // const [offset, setOffset] = useState(0);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -43,17 +45,23 @@ export default function Catalog() {
 
   function fnFindProducts(event) {
     event.preventDefault();
+    console.log('fnFindProducts');
     fnSetOffset(0);
-    setFindString(event.target.input.value);
-    // console.log("FIND: " + event.target.input.value);
-    // dispatch(listProductsRequest(`items?q=${event.target.input.value}`));
+    // dispatch(setFindString(event.target.input.value));
+    
+    console.log("FIND: " + findString);
+    dispatch(listProductsRequest(`items?q=${findString}`));
     // event.target.input.value = "";
   }
 
   function fnSetOffset(start = offset + 6) {
     dispatch(setOffset(start));
   }
-
+  
+  function fnFind(e) {
+    console.log('99', e.target.value);
+    setFindString(e.target.value)
+  }
 
   return (
     <>
@@ -64,7 +72,7 @@ export default function Catalog() {
             className="catalog-search-form form-inline"
             onSubmit={fnFindProducts}
           >
-            <input name="input" className="form-control" placeholder="Поиск" />
+            <input value={findString} onChange={fnFind} className="form-control" placeholder="Поиск" />
           </form>
         )}
         <Categories />

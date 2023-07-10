@@ -1,14 +1,35 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import headerLogo from './img/header-logo.png'
-// import Banner from "./Banner";
+import { setFindString } from "../store/actions/actionCreators";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
+  const { findString } = useSelector((state) => state.products);
   const [isVisible, setVisible] = useState(false);
+  const [findStringHome, setFindStringHome] = useState('');
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
   
-  function toggleSearch() {
-    console.log('Search!!!');
+  function toggleSearch(e) {
+    
+    e.preventDefault();
     setVisible(!isVisible);
+    // пустую строку или пробелы не ищем
+    if (isVisible && findStringHome.trim() === '') {
+      return;
+    }
+    // Переходив в каталог с параметром для поиска
+    if (isVisible) {
+      const param = findStringHome;
+      setFindStringHome('');
+      console.log('================ ищем', param);
+      // Переход в каталог с параметром
+      dispatch(setFindString(param));
+      console.log('================ findString', findString);
+      navigate('/catalog');
+    }
   }
 
   return(
@@ -17,7 +38,6 @@ export default function Header() {
         <div className="row">
           <div className="col">
             <nav className="navbar navbar-expand-sm navbar-light bg-light">
-              {/* <a className="navbar-brand" href="/"> */}
               <Link className="navbar-brand" to="/">
               <img src={headerLogo} alt="Bosa Noga" />
               </Link>
@@ -44,8 +64,16 @@ export default function Header() {
                       <div className="header-controls-cart-menu"></div>
                     </div>
                   </div>
-                  <form data-id="search-form" className={`header-controls-search-form form-inline ${isVisible ? null : "invisible"}`}>
-                    <input className="form-control" placeholder="Поиск" />
+                  <form
+                    onSubmit={toggleSearch}
+                    data-id="search-form" 
+                    className={`header-controls-search-form form-inline 
+                    ${isVisible ? null : "invisible"}`}>
+                    <input 
+                      value={findStringHome} 
+                      onChange={(e) => setFindStringHome(e.target.value)} 
+                      className="form-control" 
+                      placeholder="Поиск" />
                   </form>
                 </div>
               </div>
