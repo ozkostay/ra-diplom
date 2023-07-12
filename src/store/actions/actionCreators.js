@@ -53,11 +53,14 @@ export function setFindString(findString) {
   return { type: SET_FINDSTRING, payload: findString };
 }
 export function productRequest(param) {
+  console.log('action REQUEST param', param);
   return { type: PRODUCT_REQUEST, payload: { param } };
 }
 export function productSuccess(product) {
+  console.log('action SUCCESS param', product);
   return { type: PRODUCT_SUCCESS, payload: { product } };
 }
 export function productError() {
+  console.log('action ERROR param');
   return { type: PRODUCT_ERROR, payload: {} };
 }

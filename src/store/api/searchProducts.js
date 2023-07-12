@@ -7,6 +7,7 @@ export const searchProducts = async (search) => {
     console.log("URL ERROR");
     throw new Error(response.statusText);
   }
-  console.log("555", response.json);
-  return await response.json();
+  const json = await response.json();
+  console.log("QUERY OK", search, json);
+  return json;
 };

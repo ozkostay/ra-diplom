@@ -103,6 +103,7 @@ function* handleSearchProductSaga(action) {
       searchProducts,
       action.payload.param
     );
+    // console.log('SAGA DATA', data);
     yield put(productSuccess(data));
   } catch (e) {
     yield put(productError(e.massage));

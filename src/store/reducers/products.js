@@ -31,7 +31,7 @@ export default function productsReducer(state = initialState, action) {
       return { ...state, loading: true, error: null };
     case LIST_CATALOG_SUCCESS:
       const { products } = action.payload;
-      return { ...state, products, loading: false, error: null };
+      return { ...state, products, product: {}, loading: false, error: null };
     case LIST_CATALOG_ERROR:
       return { ...state, loading: false, error: true };
     case SET_OFFSET:
@@ -39,6 +39,7 @@ export default function productsReducer(state = initialState, action) {
     case SET_FINDSTRING:
       return { ...state, findString: action.payload };
     case PRODUCT_REQUEST:
+      console.log('reduser QUERY');
       return { ...state, loading: true, error: null };
     case PRODUCT_SUCCESS:
       const { product } = action.payload;
