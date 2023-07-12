@@ -10,18 +10,22 @@ import {
   LIST_CATALOG_ERROR,
   SET_OFFSET,
   SET_FINDSTRING,
+  PRODUCT_REQUEST,
+  PRODUCT_SUCCESS,
+  PRODUCT_ERROR,
 } from "../actions/actionTypes";
 
 const initialState = {
   products: [],
+  product: {},
   loading: false,
   error: null,
   offset: 0,
-  findString: '',
+  findString: "",
 };
 
 export default function productsReducer(state = initialState, action) {
-  console.log('reduser ',action.type);
+  // console.log('reduser ',action.type);
   switch (action.type) {
     case LIST_CATALOG_REQUEST:
       return { ...state, loading: true, error: null };
@@ -33,10 +37,15 @@ export default function productsReducer(state = initialState, action) {
     case SET_OFFSET:
       return { ...state, offset: action.payload };
     case SET_FINDSTRING:
-      console.log(222, action.payload);
       return { ...state, findString: action.payload };
+    case PRODUCT_REQUEST:
+      return { ...state, loading: true, error: null };
+    case PRODUCT_SUCCESS:
+      const { product } = action.payload;
+      return { ...state, product, loading: false, error: null };
+    case PRODUCT_ERROR:
+      return { ...state, loading: false, error: true };
     default:
-      console.log('reduser-DEF');
       return state;
   }
 }

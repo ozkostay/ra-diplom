@@ -7,6 +7,8 @@ import {
   categoriesError,
   hitsSuccess,
   hitsError,
+  productSuccess,
+  productError,
 } from "../actions/actionCreators";
 
 import {
@@ -19,6 +21,9 @@ import {
   LIST_CATALOG_REQUEST,
   LIST_CATALOG_SUCCESS,
   LIST_CATALOG_ERROR,
+  PRODUCT_REQUEST,
+  PRODUCT_SUCCESS,
+  PRODUCT_ERROR,
 } from "../actions/actionTypes";
 
 import { searchProducts } from "../api/searchProducts";
@@ -88,6 +93,22 @@ function* handleSearchHitsSaga(action) {
   }
 }
 
+function* handleSearchProductSaga(action) {
+  try {
+    const retryCount = 1;
+    const retryDelay = 1 * 1000;
+    const data = yield retry(
+      retryCount,
+      retryDelay,
+      searchProducts,
+      action.payload.param
+    );
+    yield put(productSuccess(data));
+  } catch (e) {
+    yield put(productError(e.massage));
+  }
+}
+
 // // watcher
 // function* watchChangeSearchSaga() {
 //   yield debounce(100, filterChangeSearchAction, handleChangeSearchSaga);
@@ -106,8 +127,13 @@ function* watchHitsSaga() {
   yield takeLatest(HITS_REQUEST, handleSearchHitsSaga);
 }
 
+function* watchProductSaga() {
+  yield takeLatest(PRODUCT_REQUEST, handleSearchProductSaga);
+}
+
 export default function* saga() {
   yield spawn(watchListProductsSaga);
   yield spawn(watchCategoriesSaga);
   yield spawn(watchHitsSaga);
+  yield spawn(watchProductSaga);
 }

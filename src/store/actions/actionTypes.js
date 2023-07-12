@@ -13,7 +13,10 @@ export const LIST_CATALOG_SUCCESS = "LIST_CATALOG_SUCCESS";
 export const LIST_CATALOG_ERROR = "LIST_CATALOG_ERROR";
 export const SET_OFFSET = "SET_OFFSET";
 export const SET_FINDSTRING = "SET_FINDSTRING";
-
+// Непосредственно товар
+export const PRODUCT_REQUEST = "PRODUCT_REQUEST";
+export const PRODUCT_SUCCESS = "PRODUCT_SUCCESS";
+export const PRODUCT_ERROR = "PRODUCT_ERROR";
 
 // // Пока не используем
 // // Список каталога по отдельной категории

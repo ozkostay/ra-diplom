@@ -11,6 +11,9 @@ import {
   LIST_CATALOG_ERROR,
   SET_OFFSET,
   SET_FINDSTRING,
+  PRODUCT_REQUEST,
+  PRODUCT_SUCCESS,
+  PRODUCT_ERROR,
 } from "./actionTypes";
 
 export function hitsRequest(param) {
@@ -47,7 +50,14 @@ export function setOffset(num) {
   return { type: SET_OFFSET, payload: num };
 }
 export function setFindString(findString) {
-  console.log('actCreator SET_FINDSTRING', findString);
   return { type: SET_FINDSTRING, payload: findString };
 }
-
+export function productRequest(param) {
+  return { type: PRODUCT_REQUEST, payload: { param } };
+}
+export function productSuccess(product) {
+  return { type: PRODUCT_SUCCESS, payload: { product } };
+}
+export function productError() {
+  return { type: PRODUCT_ERROR, payload: {} };
+}

@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CatalogItem({ item }) {
+  const navigate = useNavigate();
   const stylePic = {
     height: 480,
     display: "flex",
@@ -8,6 +10,11 @@ export default function CatalogItem({ item }) {
     justifyContent: "center",
     // border: '1px solid black'
   };
+
+  function fnShowProduct(id) {
+    console.log("ItemID ", id);
+    navigate(`/catalog/${id}`);
+  }
 
   return (
     <>
@@ -25,7 +32,13 @@ export default function CatalogItem({ item }) {
             <p className="card-text">{item.title}</p>
             <p className="card-text">{item.category}</p>
             <p className="card-text">{item.price + " руб."}</p>
-            <a href="/products/1.html" className="btn btn-outline-primary">
+            {/* <a href="/products/1.html" className="btn btn-outline-primary">
+              Заказать
+            </a> */}
+            <a
+              onClick={() => fnShowProduct(item.id)}
+              className="btn btn-outline-primary"
+            >
               Заказать
             </a>
           </div>
