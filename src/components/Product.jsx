@@ -2,51 +2,56 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { productRequest } from "../store/actions/actionCreators";
-import ProductSize from './ProductSize';
+import ProductSize from "./ProductSize";
 
 export default function Product() {
-  console.log('111');
   const { product, loading, error } = useSelector((state) => state.products);
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [currentVars, setCurrentVars] = useState({
-    quantity: 1,
-    sizes: [],
-    currentSizeIndex: 0,
-  });
+  const [sizes, setSizes] = useState([]); // Активные размеры
+  const [activeCart, setActiveCart] = useState(" disabled"); // Активность кнопки корзины
 
   // Получаем товар из базы
   useEffect(() => {
-    console.log('222-1', id);
-    // console.log(`items/${id}`);
     dispatch(productRequest(`items/${id}`));
-    console.log("product", product);
-    console.log("222-2", product);
   }, []);
 
-  console.log('333');
+  // Выясняем какие размеры есть, флаг available
   useEffect(() => {
-    if (!product.id) {return;}
-    console.log("444-1", product);
-    const sizesAvailable = [...product.sizes]
-      .filter((i) => i.available)
-      .map((i) => i.size);
-    console.log("111", product.sizes, "222", sizesAvailable);
-    setCurrentVars({
-      quantity: 2,
-      sizes: [...sizesAvailable],
-      currentSizeIndex: 0,
+    if (!product.id) {
+      return;
+    }
+    const sizesAvailable = [...product.sizes].filter((i) => i.available);
+    const tempSizes = [];
+    sizesAvailable.forEach((item, index) => {
+      tempSizes.push({
+        id: index,
+        size: item.size,
+        active: false,
+      });
     });
-    // console.log(currentVars);
-    console.log("444-2", currentVars);
+    setSizes(tempSizes);
   }, [product]);
 
-  // Выясняем какие размеры есть, флаг available
-  // По умолчанию ни один размер не выбран. После выбора он становится выделенным,
-  // как на скриншоте.
-  // Важно: кнопка «В корзину» активируется только тогда, когда есть размеры в наличии и выбран конкретный размер.
-  // Размер можно выбрать только один.
-  console.log("555", product.length);
+  function markSize(id) {
+    // Размер можно выбрать только один.
+    const tempSizes = [...sizes];
+    tempSizes.forEach((item) => {
+      item.active = item.id === id ? true : false;
+    });
+    setSizes(tempSizes);
+    setActiveCart(""); // Кнопка «В корзину» активируется только тогда, когда есть размеры в наличии и выбран конкретный размер.
+  }
+
+  function ProductToCart() {
+    console.log("поехали в корзину");
+    // Наименование (сам объект)
+    // Размер
+    // Кол-во
+    // Стоимость
+    // Итог (по итогу в конце сумма)
+  }
+
   if (product.id) {
     return (
       <>
@@ -54,9 +59,9 @@ export default function Product() {
           <h2 className="text-center">{product.title}</h2>
           <div className="row">
             <div className="col-5">
-               {product?.images[0] && (
+              {product?.images[0] && (
                 <img src={product.images[0]} className="img-fluid" alt="PIC" />
-              )} 
+              )}
             </div>
             <div className="col-7">
               <table className="table table-bordered">
@@ -90,13 +95,13 @@ export default function Product() {
               <div className="text-center">
                 <p>
                   Размеры в наличии:
-                  {/* <span className="catalog-item-size selected">18 US</span>{" "}
-                   <span className="catalog-item-size">20 US</span> */}
-                  {
-                    // console.log(currentVars.sizes)
-                    currentVars.sizes.map((item, index) => <ProductSize key={index} item={item}/>)
-                  }
-                  
+                  {sizes.map((item) => (
+                    <ProductSize
+                      key={item.id}
+                      item={item}
+                      markSize={markSize}
+                    />
+                  ))}
                 </p>
                 <p>
                   Количество:{" "}
@@ -107,7 +112,10 @@ export default function Product() {
                   </span>
                 </p>
               </div>
-              <button className="btn btn-danger btn-block btn-lg">
+              <button
+                onClick={ProductToCart}
+                className={`btn btn-danger btn-block btn-lg ${activeCart}`}
+              >
                 В корзину
               </button>
             </div>
@@ -116,8 +124,6 @@ export default function Product() {
       </>
     );
   } else {
-    return (<>
-    Pusto
-    </>)
+    return <></>;
   }
 }

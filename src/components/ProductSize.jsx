@@ -1,30 +1,14 @@
-import React, { useState } from 'react';
+import React from "react";
 
-export default function ProductSize({item}) {
-  const styleMark = {
-    backgroundColor: '#777777',
-    borderRadius: '15px',
-    marginLeft: '20px',
-    cursor: 'pointer',
-    color: '#ffffff'
-  }
-  const styleNotMark = {
-    marginLeft: '20px',
-    cursor: 'pointer',
-  }
-  
-  const [ style, setStyle ] = useState(false);
-
-  function markSize() {
-    setStyle(!style);
-    console.log('markSize', style);
-  }
-
+export default function ProductSize({ item, markSize }) {
   return (
-      
-         <span onClick={markSize} style={ style ? styleMark : styleNotMark } className="catalog-item-size">{item}</span> 
-      
-      
-    
-  ) 
+    <span
+      onClick={() => markSize(item.id)}
+      className={
+        item.active ? "catalog-item-size selected" : "catalog-item-size"
+      }
+    >
+      {item.size}
+    </span>
+  );
 }
