@@ -9,7 +9,8 @@ export default function Product() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [sizes, setSizes] = useState([]); // Активные размеры
-  const [activeCart, setActiveCart] = useState(" disabled"); // Активность кнопки корзины
+  const [activeCart, setActiveCart] = useState("disabled"); // Активность кнопки корзины
+  const [quantity, setQuantity] = useState(1); // количество в корзину
 
   // Получаем товар из базы
   useEffect(() => {
@@ -31,6 +32,14 @@ export default function Product() {
       });
     });
     setSizes(tempSizes);
+    if (tempSizes.length === 0) {
+      console.log('cart 111');
+      setActiveCart("d-none");
+    } else {
+      console.log('cart 222');
+      // setActiveCart("");
+  }
+    
   }, [product]);
 
   function markSize(id) {
@@ -45,6 +54,13 @@ export default function Product() {
 
   function ProductToCart() {
     console.log("поехали в корзину");
+    const order = {
+      idProduct: product.id,
+      title: product.title,
+      size: product.sizes[0],
+      quantityOfProduct: 1,
+      price: 11
+    }
     // Наименование (сам объект)
     // Размер
     // Кол-во
@@ -103,14 +119,18 @@ export default function Product() {
                     />
                   ))}
                 </p>
-                <p>
-                  Количество:{" "}
-                  <span className="btn-group btn-group-sm pl-2">
-                    <button className="btn btn-secondary">-</button>
-                    <span className="btn btn-outline-primary">1</span>
-                    <button className="btn btn-secondary">+</button>
-                  </span>
-                </p>
+                {activeCart !== 'd-none' &&
+                  ( <p>
+                      Количество:{" "}
+                      <span className="btn-group btn-group-sm pl-2">
+                        <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : quantity)} className="btn btn-secondary">-</button>
+                        <span className="btn btn-outline-primary">{quantity}</span>
+                        <button  onClick={() => setQuantity(quantity < 10 ? quantity + 1 : quantity)} className="btn btn-secondary">+</button>
+                      </span>
+                    </p>
+                  )
+                }
+                
               </div>
               <button
                 onClick={ProductToCart}

@@ -46,7 +46,7 @@
         "sizes": [
             {
                 "size": "12 US",
-                "available": true
+                "available": false
             },
             {
                 "size": "16 US",
