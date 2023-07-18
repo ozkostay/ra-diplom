@@ -4,11 +4,13 @@ import saga from "./sagas";
 import productsReducer from "./reducers/products";
 import categoriesReducer from "./reducers/categories";
 import hitsReducer from "./reducers/hits";
+import cartReducer from './reducers/cart';
 
 const reducer = combineReducers({
   products: productsReducer,
   categories: categoriesReducer,
   hits: hitsReducer,
+  cart: cartReducer,
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();

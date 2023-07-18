@@ -7,6 +7,7 @@ import About from "./components/About";
 import Contacts from "./components/Contacts";
 import Catalog from "./components/Catalog";
 import Product from "./components/Product";
+import Cart from './components/Cart';
 // "bootstrap": "^5.2.3",
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/catalog" element={<Catalog />} />
           {/* <Route path='/error' element={<Error />} /> */}
           <Route path="/catalog/:id" element={<Product />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>

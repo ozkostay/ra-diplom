@@ -24,6 +24,9 @@ import {
   PRODUCT_REQUEST,
   PRODUCT_SUCCESS,
   PRODUCT_ERROR,
+  ADD_CART_REQUEST,
+  ADD_CART_SUCCESS,
+  ADD_CART_ERROR,
 } from "../actions/actionTypes";
 
 import { searchProducts } from "../api/searchProducts";
@@ -110,6 +113,8 @@ function* handleSearchProductSaga(action) {
   }
 }
 
+
+
 // // watcher
 // function* watchChangeSearchSaga() {
 //   yield debounce(100, filterChangeSearchAction, handleChangeSearchSaga);
@@ -131,6 +136,7 @@ function* watchHitsSaga() {
 function* watchProductSaga() {
   yield takeLatest(PRODUCT_REQUEST, handleSearchProductSaga);
 }
+
 
 export default function* saga() {
   yield spawn(watchListProductsSaga);

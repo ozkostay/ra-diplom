@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { productRequest } from "../store/actions/actionCreators";
 import ProductSize from "./ProductSize";
+import { logRoles } from '@testing-library/react';
 
 export default function Product() {
   const { product, loading, error } = useSelector((state) => state.products);
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [sizes, setSizes] = useState([]); // Активные размеры
   const [activeCart, setActiveCart] = useState("disabled"); // Активность кнопки корзины
   const [quantity, setQuantity] = useState(1); // количество в корзину
@@ -53,19 +55,17 @@ export default function Product() {
   }
 
   function ProductToCart() {
-    console.log("поехали в корзину");
+    // Формируем объект для корзины
+    // и с ним переходим в корзину
+    const activeSize = sizes.filter((i) => i.active);
+    console.log("поехали в корзину", activeSize);
     const order = {
-      idProduct: product.id,
-      title: product.title,
-      size: product.sizes[0],
-      quantityOfProduct: 1,
-      price: 11
+      product: product,
+      size: activeSize[0].size,
+      quantity: quantity,
+      price: product.price
     }
-    // Наименование (сам объект)
-    // Размер
-    // Кол-во
-    // Стоимость
-    // Итог (по итогу в конце сумма)
+    navigate('/cart', {state: { order }});
   }
 
   if (product.id) {

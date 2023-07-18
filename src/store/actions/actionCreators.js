@@ -14,6 +14,15 @@ import {
   PRODUCT_REQUEST,
   PRODUCT_SUCCESS,
   PRODUCT_ERROR,
+  CART_REQUEST,
+  CART_SUCCESS,
+  CART_ERROR,
+  ADD_CART_REQUEST,
+  ADD_CART_SUCCESS,
+  ADD_CART_ERROR,
+  DELETE_CART_REQUEST,
+  DELETE_CART_SUCCESS,
+  DELETE_CART_ERROR,
 } from "./actionTypes";
 
 export function hitsRequest(param) {
@@ -64,3 +73,34 @@ export function productError() {
   console.log('action ERROR param');
   return { type: PRODUCT_ERROR, payload: {} };
 }
+
+export function cartRequest(param) {
+  return { type: CART_REQUEST, payload: {param} };
+}
+export function cartSuccess(cart) {
+  return { type: CART_REQUEST, payload: {cart} };
+}
+export function cartError() {
+  return { type: CART_REQUEST, payload: {} };
+}
+
+export function addCartRequest(param) {
+  return { type: ADD_CART_REQUEST, payload: {param} };
+}
+export function addCartSuccess(cart) {
+  return { type: ADD_CART_REQUEST, payload: {cart} };
+}
+export function addCartError() {
+  return { type: ADD_CART_REQUEST, payload: {} };
+}
+
+export function deleteCartRequest(param) {
+  return { type: DELETE_CART_REQUEST, payload: {param} };
+}
+export function deleteCartSuccess(cart) {
+  return { type: DELETE_CART_REQUEST, payload: {cart} };
+}
+export function deleteCartError() {
+  return { type: DELETE_CART_REQUEST, payload: {} };
+}
+  
