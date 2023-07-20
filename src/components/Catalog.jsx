@@ -18,6 +18,7 @@ export default function Catalog(params) {
     (state) => state.products
   );
   const { currentCategory } = useSelector((state) => state.categories);
+  const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -55,10 +56,15 @@ export default function Catalog(params) {
     dispatch(setFindString(e.target.value));
   }
 
+  function fnDisp() {
+    console.log("fnDisp cart:", cart);
+  }
+
   return (
     <>
       <section className="catalog">
         <h2 className="text-center">Каталог</h2>
+        <button onClick={fnDisp}>Disp</button>
         {location.pathname === "/catalog" && (
           <form
             className="catalog-search-form form-inline"

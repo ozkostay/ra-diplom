@@ -62,37 +62,22 @@ export function setFindString(findString) {
   return { type: SET_FINDSTRING, payload: findString };
 }
 export function productRequest(param) {
-  console.log("action REQUEST param", param);
+  // console.log("action REQUEST param", param);
   return { type: PRODUCT_REQUEST, payload: { param } };
 }
 export function productSuccess(product) {
-  console.log("action SUCCESS param", product);
+  // console.log("action SUCCESS param", product);
   return { type: PRODUCT_SUCCESS, payload: { product } };
 }
 export function productError() {
-  console.log("action ERROR param");
+  // console.log("action ERROR param");
   return { type: PRODUCT_ERROR, payload: {} };
 }
 
-// export function cartSuccess(cart) {
-//   console.log("ACTION CART", cart);
-//   return { type: CART_SUCCESS, payload: { cart } };
-// }
-
 export function addCartSuccess(cart) {
-  console.log("ACTION ADD CART", cart);
+  // console.log("ACTION ADD CART", cart);
   return { type: ADD_CART_SUCCESS, payload: cart };
 }
-// export function addCartError() {
-//   return { type: ADD_CART_REQUEST, payload: {} };
-// }
-
-// export function deleteCartRequest(param) {
-//   return { type: DELETE_CART_REQUEST, payload: { param } };
-// }
 export function deleteCartSuccess(cart) {
   return { type: DELETE_CART_REQUEST, payload: { cart } };
 }
-// export function deleteCartError() {
-//   return { type: DELETE_CART_REQUEST, payload: {} };
-// }

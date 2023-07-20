@@ -39,7 +39,7 @@ export default function productsReducer(state = initialState, action) {
     case SET_FINDSTRING:
       return { ...state, findString: action.payload };
     case PRODUCT_REQUEST:
-      console.log('reduser QUERY');
+      // console.log('reduser QUERY');
       return { ...state, loading: true, error: null };
     case PRODUCT_SUCCESS:
       const { product } = action.payload;

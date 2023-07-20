@@ -28,6 +28,11 @@ export default function Header() {
     }
   }
 
+  function goToCart() {
+    console.log("ЯРЛЫК КОРЗИНА!!!");
+    navigate("/cart", { state: { order: null } });
+  }
+
   return (
     <>
       <header className="container">
@@ -68,7 +73,10 @@ export default function Header() {
                       data-id="search-expander"
                       className="header-controls-pic header-controls-search"
                     ></div>
-                    <div className="header-controls-pic header-controls-cart">
+                    <div
+                      onClick={goToCart}
+                      className="header-controls-pic header-controls-cart"
+                    >
                       <div className="header-controls-cart-full">1</div>
                       <div className="header-controls-cart-menu"></div>
                     </div>

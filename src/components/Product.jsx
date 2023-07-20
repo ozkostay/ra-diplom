@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { productRequest } from "../store/actions/actionCreators";
 import ProductSize from "./ProductSize";
-import { logRoles } from '@testing-library/react';
+import { logRoles } from "@testing-library/react";
 
 export default function Product() {
   const { product, loading, error } = useSelector((state) => state.products);
@@ -35,13 +35,12 @@ export default function Product() {
     });
     setSizes(tempSizes);
     if (tempSizes.length === 0) {
-      console.log('cart 111');
+      console.log("cart 111");
       setActiveCart("d-none");
     } else {
-      console.log('cart 222');
+      console.log("cart 222");
       // setActiveCart("");
-  }
-    
+    }
   }, [product]);
 
   function markSize(id) {
@@ -58,14 +57,18 @@ export default function Product() {
     // Формируем объект для корзины
     // и с ним переходим в корзину
     const activeSize = sizes.filter((i) => i.active);
+    if (activeSize.length === 0) {
+      return;
+    }
     console.log("поехали в корзину", activeSize);
     const order = {
+      id: null,
       product: product,
       size: activeSize[0].size,
       quantity: quantity,
-      price: product.price
-    }
-    navigate('/cart', {state: { order }});
+      price: product.price,
+    };
+    navigate("/cart", { state: { order } });
   }
 
   if (product.id) {
@@ -119,18 +122,32 @@ export default function Product() {
                     />
                   ))}
                 </p>
-                {activeCart !== 'd-none' &&
-                  ( <p>
-                      Количество:{" "}
-                      <span className="btn-group btn-group-sm pl-2">
-                        <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : quantity)} className="btn btn-secondary">-</button>
-                        <span className="btn btn-outline-primary">{quantity}</span>
-                        <button  onClick={() => setQuantity(quantity < 10 ? quantity + 1 : quantity)} className="btn btn-secondary">+</button>
+                {activeCart !== "d-none" && (
+                  <p>
+                    Количество:{" "}
+                    <span className="btn-group btn-group-sm pl-2">
+                      <button
+                        onClick={() =>
+                          setQuantity(quantity > 1 ? quantity - 1 : quantity)
+                        }
+                        className="btn btn-secondary"
+                      >
+                        -
+                      </button>
+                      <span className="btn btn-outline-primary">
+                        {quantity}
                       </span>
-                    </p>
-                  )
-                }
-                
+                      <button
+                        onClick={() =>
+                          setQuantity(quantity < 10 ? quantity + 1 : quantity)
+                        }
+                        className="btn btn-secondary"
+                      >
+                        +
+                      </button>
+                    </span>
+                  </p>
+                )}
               </div>
               <button
                 onClick={ProductToCart}
