@@ -17,6 +17,8 @@ import {
   CART_REQUEST,
   CART_SUCCESS,
   CART_ERROR,
+  CART_TOTALCOST,
+  CART_ORDER,
   ADD_CART_REQUEST,
   ADD_CART_SUCCESS,
   ADD_CART_ERROR,
@@ -78,6 +80,15 @@ export function addCartSuccess(cart) {
   // console.log("ACTION ADD CART", cart);
   return { type: ADD_CART_SUCCESS, payload: cart };
 }
-export function deleteCartSuccess(cart) {
-  return { type: DELETE_CART_REQUEST, payload: { cart } };
+export function deleteCartSuccess(id) {
+  //console.log("ACTION DELETE CART", id);
+  return { type: DELETE_CART_SUCCESS, payload: { id } };
+}
+export function cartTotal(sum) {
+  //console.log("CART_TOTALCOST", sum);
+  return { type: CART_TOTALCOST, payload: { sum } };
+}
+export function cartOrder(order) {
+  console.log("CART_ORDER", order);
+  return { type: CART_ORDER, payload: order };
 }

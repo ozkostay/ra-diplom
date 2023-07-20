@@ -21,6 +21,8 @@ export const PRODUCT_ERROR = "PRODUCT_ERROR";
 export const CART_REQUEST = "CART_REQUEST";
 export const CART_SUCCESS = "CART_SUCCESS";
 export const CART_ERROR = "CART_ERROR";
+export const CART_TOTALCOST = "CART_TOTALCOST";
+export const CART_ORDER = "CART_ORDER";
 // добавление в корзину req succ err
 export const ADD_CART_REQUEST = "ADD_CART_REQUEST";
 export const ADD_CART_SUCCESS = "ADD_CART_SUCCESS";

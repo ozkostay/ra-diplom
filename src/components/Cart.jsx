@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { addCartSuccess } from "../store/actions/actionCreators";
+import { addCartSuccess, cartTotal } from "../store/actions/actionCreators";
 import CartItem from "./CartItem";
 
 export default function Cart() {
-  const { cart } = useSelector((state) => state.cart);
+  const { cart, totalCost, order } = useSelector((state) => state.cart);
   const location = useLocation().pathname;
-  let order = useLocation().state.order;
+  // let order = useLocation().state.order;
   const dispatch = useDispatch();
   // let totalCost = 0;
-  const [totalCost, setTotalCost] = useState(0);
+  // const [totalCost, setTotalCost] = useState(0);
   console.log("!!===========================================");
   // console.log("CART cart", cart);
   // console.log("CART props", order);
@@ -20,26 +20,41 @@ export default function Cart() {
     if (!order) {
       return;
     }
+    console.log('!!!================', order);
+    // if (performance.navigation.type === 1) {
+    //   console.log("This page is reloaded");
+    // } else {
+    //   console.log("This page is not reloaded");
+    // }
     const tempCart = [...cart];
     // Ищем совпадение товар-размер
     const isFind = tempCart.findIndex(
-      (item) => item.product.id === order.product.id && item.size === order.size
+      (item) => {
+        return item.product.id === order.product.id && item.size === order.size
+      }
+      
     );
     if (isFind < 0) {
       tempCart.push(order);
     } else {
+      
       tempCart[isFind].quantity += order.quantity;
-      order = null;
+      // order = null;
     }
-    setTotalCost(
-      tempCart.reduce((sum, item, index) => {
-        item.id = index;
-        return sum + item.quantity * item.price;
-      }, 0)
-    );
+    // Подсчет общей суммы + диспатч
+    dispatch(cartTotal(tempCart.reduce((sum, item, index) => {
+          item.id = index;
+          return sum + item.quantity * item.price;
+        }, 0)));
     dispatch(addCartSuccess(tempCart));
+    // localStorage.setItem('cart', );
+    localStorage.setItem('cart', JSON.stringify({ cart: tempCart , totalCost }));
+    // localStorage.setItem('cart', JSON.stringify(tempCart));
   }, []);
 
+  function fnTemp() {
+
+  }
   // План:
   // редьюсер Cart из LocalStorage
   // синхронизация state b LocalStorage
@@ -48,6 +63,8 @@ export default function Cart() {
   function fnDisp() {
     console.log("fnDisp cart:", cart);
   }
+
+  
 
   return (
     <>

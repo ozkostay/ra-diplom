@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { productRequest } from "../store/actions/actionCreators";
+import { productRequest, cartOrder } from "../store/actions/actionCreators";
 import ProductSize from "./ProductSize";
 import { logRoles } from "@testing-library/react";
 
 export default function Product() {
   const { product, loading, error } = useSelector((state) => state.products);
+  const { cart, totalCost, order } = useSelector((state) => state.cart);
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -60,15 +61,19 @@ export default function Product() {
     if (activeSize.length === 0) {
       return;
     }
-    console.log("поехали в корзину", activeSize);
-    const order = {
+    
+    const tempOrder = {
       id: null,
       product: product,
       size: activeSize[0].size,
       quantity: quantity,
       price: product.price,
     };
-    navigate("/cart", { state: { order } });
+    
+    console.log("поехали в корзину", tempOrder);
+    
+    dispatch(cartOrder(tempOrder));
+    navigate("/cart");
   }
 
   if (product.id) {
