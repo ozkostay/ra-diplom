@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { addCartSuccess, cartTotal } from "../store/actions/actionCreators";
+import {
+  addCartSuccess,
+  cartTotal,
+  cartOrder,
+} from "../store/actions/actionCreators";
 import CartItem from "./CartItem";
 
 export default function Cart() {
@@ -18,43 +22,37 @@ export default function Cart() {
 
   useEffect(() => {
     if (!order) {
+      console.log("Not ORDER", totalCost);
       return;
     }
-    console.log('!!!================', order);
-    // if (performance.navigation.type === 1) {
-    //   console.log("This page is reloaded");
-    // } else {
-    //   console.log("This page is not reloaded");
-    // }
+    console.log("!!!================", order);
     const tempCart = [...cart];
     // Ищем совпадение товар-размер
-    const isFind = tempCart.findIndex(
-      (item) => {
-        return item.product.id === order.product.id && item.size === order.size
-      }
-      
-    );
+    const isFind = tempCart.findIndex((item) => {
+      return item.product.id === order.product.id && item.size === order.size;
+    });
     if (isFind < 0) {
       tempCart.push(order);
     } else {
-      
       tempCart[isFind].quantity += order.quantity;
-      // order = null;
     }
-    // Подсчет общей суммы + диспатч
-    dispatch(cartTotal(tempCart.reduce((sum, item, index) => {
-          item.id = index;
-          return sum + item.quantity * item.price;
-        }, 0)));
+    dispatch(cartOrder(null));
+    const sum = tempCart.reduce((sum, item, index) => {
+      item.id = index;
+      return sum + item.quantity * item.price;
+    }, 0);
+    console.log("CArt SUM", sum);
+    dispatch(cartTotal(sum));
     dispatch(addCartSuccess(tempCart));
     // localStorage.setItem('cart', );
-    localStorage.setItem('cart', JSON.stringify({ cart: tempCart , totalCost }));
+    localStorage.setItem(
+      "cart",
+      JSON.stringify({ cart: tempCart, totalCost: sum })
+    );
     // localStorage.setItem('cart', JSON.stringify(tempCart));
   }, []);
 
-  function fnTemp() {
-
-  }
+  function fnTemp() {}
   // План:
   // редьюсер Cart из LocalStorage
   // синхронизация state b LocalStorage
@@ -64,12 +62,10 @@ export default function Cart() {
     console.log("fnDisp cart:", cart);
   }
 
-  
-
   return (
     <>
-      Корзина
-      <button onClick={fnDisp}>Disp</button>
+      {/* Корзина
+      <button onClick={fnDisp}>Disp</button> */}
       <section className="cart">
         <h2 className="text-center">Корзина</h2>
         <table className="table table-bordered">
