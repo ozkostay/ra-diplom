@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { addOrder } from '../store/api/addOrder';
 
 export default function PlaceOrder() {
   const { cart } = useSelector((state) => state.cart);
@@ -13,19 +14,6 @@ export default function PlaceOrder() {
 
   function sendOrder(event) {
     event.preventDefault();
-    // {
-    //   "owner": {
-    //     "phone": "+7xxxxxxxxxxx",
-    //     "address": "Moscow City",
-    //   },
-    //   "items": [
-    //     {
-    //       "id": 1,
-    //       "price": 34000,
-    //       "count": 1
-    //     }
-    //   ]
-    // }
     const odjForOrder = {
       owner: {
         phone,
@@ -42,12 +30,16 @@ export default function PlaceOrder() {
         }
       );
     })
-    console.log('ORDER odjForOrder', odjForOrder);
-    // console.log(
-    //   'phone',phone,
-    //   'address', address,
-    //   'check', deliveryRules
-    // );
+    // console.log('ORDER odjForOrder', odjForOrder);
+    const responseOrder = addOrder(odjForOrder);
+    responseOrder.then(res => {
+      if (res.status === 204) {
+        console.log('Заказ сделан!!!');
+        alert('Заказ сделан успешно!!!');
+      } else {
+        console.log('Ошибка заказа ', res.statusText);
+      }
+    })
   }
 
   return (

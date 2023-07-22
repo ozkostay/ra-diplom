@@ -25,6 +25,9 @@ import {
   DELETE_CART_REQUEST,
   DELETE_CART_SUCCESS,
   DELETE_CART_ERROR,
+  ORDER_REQUEST,
+  ORDER_SUCCESS,
+  ORDER_ERROR,
 } from "./actionTypes";
 
 export function hitsRequest(param) {
@@ -91,4 +94,17 @@ export function cartTotal(sum) {
 export function cartOrder(order) {
   console.log("CART_ORDER", order);
   return { type: CART_ORDER, payload: order };
+}
+
+export function orderRequest(order) {
+  // console.log("action REQUEST param", param);
+  return { type: ORDER_REQUEST, payload: { order } };
+}
+export function orderSuccess(ok) {
+  // console.log("action SUCCESS param", product);
+  return { type: ORDER_SUCCESS, payload: { ok } };
+}
+export function orderError() {
+  // console.log("action ERROR param");
+  return { type: ORDER_ERROR, payload: {} };
 }
