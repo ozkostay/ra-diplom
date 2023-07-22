@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import headerLogo from "./img/header-logo.png";
 import { setFindString } from "../store/actions/actionCreators";
@@ -6,8 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
   const { findString } = useSelector((state) => state.products);
+  const { cart } = useSelector((state) => state.cart);
   const [isVisible, setVisible] = useState(false);
   const [findStringHome, setFindStringHome] = useState("");
+  const [cartCount, setCartCount] = useState(null);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ export default function Header() {
     if (isVisible && findStringHome.trim() === "") {
       return;
     }
-    // Переходив в каталог с параметром для поиска
+    // Переходив в каталог c параметром для поиска в state
     if (isVisible) {
       const param = findStringHome;
       setFindStringHome("");
@@ -27,6 +29,16 @@ export default function Header() {
       navigate("/catalog");
     }
   }
+
+  useEffect(() => {
+    console.log('HEADER cartLENGTH', cart.length);
+    setCartCount(cart.length);
+  }, [cart])
+
+
+
+
+
 
   function goToCart() {
     console.log("ЯРЛЫК КОРЗИНА!!!");
@@ -77,7 +89,7 @@ export default function Header() {
                       onClick={goToCart}
                       className="header-controls-pic header-controls-cart"
                     >
-                      <div className="header-controls-cart-full">1</div>
+                      <div className={"header-controls-cart-full" + (cartCount ? " " : " d-none")}>{cartCount}</div>
                       <div className="header-controls-cart-menu"></div>
                     </div>
                   </div>

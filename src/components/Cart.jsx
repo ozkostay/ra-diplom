@@ -7,6 +7,7 @@ import {
   cartOrder,
 } from "../store/actions/actionCreators";
 import CartItem from "./CartItem";
+import PlaceOrder from "./PlaceOrder";
 
 export default function Cart() {
   const { cart, totalCost, order } = useSelector((state) => state.cart);
@@ -94,6 +95,7 @@ export default function Cart() {
           </tbody>
         </table>
       </section>
+      <PlaceOrder />
     </>
   );
 }
