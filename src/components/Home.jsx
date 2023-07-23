@@ -5,16 +5,11 @@ import Catalog from "./Catalog";
 import { hitsRequest } from "../store/actions/actionCreators";
 
 export default function Home() {
-  const { hits, loading, error, route } = useSelector((state) => state.hits);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(hitsRequest("top-sales"));
-  }, []);
+  const { hits } = useSelector((state) => state.hits);
 
   return (
     <>
-      {hits.length > 0 && <Hits hits={hits} />}
+      <Hits />
       <Catalog />
     </>
   );
