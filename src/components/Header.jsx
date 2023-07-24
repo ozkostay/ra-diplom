@@ -5,13 +5,12 @@ import { setFindString } from "../store/actions/actionCreators";
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
-  const { findString } = useSelector((state) => state.products);
+  // const { findString } = useSelector((state) => state.products);
   const { cart } = useSelector((state) => state.cart);
   const [isVisible, setVisible] = useState(false);
   const [findStringHome, setFindStringHome] = useState("");
   const [cartCount, setCartCount] = useState(null);
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   function toggleSearch(e) {
@@ -31,17 +30,12 @@ export default function Header() {
   }
 
   useEffect(() => {
-    console.log('HEADER cartLENGTH', cart.length);
+    // console.log("HEADER cartLENGTH", cart.length);
     setCartCount(cart.length);
-  }, [cart])
-
-
-
-
-
+  }, [cart]);
 
   function goToCart() {
-    console.log("ЯРЛЫК КОРЗИНА!!!");
+    // console.log("ЯРЛЫК КОРЗИНА!!!");
     navigate("/cart", { state: { order: null } });
   }
 
@@ -89,7 +83,14 @@ export default function Header() {
                       onClick={goToCart}
                       className="header-controls-pic header-controls-cart"
                     >
-                      <div className={"header-controls-cart-full" + (cartCount ? " " : " d-none")}>{cartCount}</div>
+                      <div
+                        className={
+                          "header-controls-cart-full" +
+                          (cartCount ? " " : " d-none")
+                        }
+                      >
+                        {cartCount}
+                      </div>
                       <div className="header-controls-cart-menu"></div>
                     </div>
                   </div>

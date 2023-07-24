@@ -13,42 +13,17 @@ import {
 
 import {
   HITS_REQUEST,
-  HITS_SUCCESS,
-  HITS_ERROR,
   CATEGORIES_REQUEST,
-  CATEGORIES_SUCCESS,
-  CATEGORIES_ERROR,
   LIST_CATALOG_REQUEST,
-  LIST_CATALOG_SUCCESS,
-  LIST_CATALOG_ERROR,
   PRODUCT_REQUEST,
-  PRODUCT_SUCCESS,
-  PRODUCT_ERROR,
-  ADD_CART_REQUEST,
-  ADD_CART_SUCCESS,
-  ADD_CART_ERROR,
 } from "../actions/actionTypes";
 
 import { searchProducts } from "../api/searchProducts";
 import { searchCategories } from "../api/searchCategories";
 import { searchHits } from "../api/searchHits";
 
-// import { searchItem } from '../api/searchItem';
-
-// import { act } from 'react-dom/test-utils';
-
-// function filterChangeSearchAction({ type, payload}) {
-//   return type === CHANGE_SEARCH_FIELD && payload.search.trim() !== '';
-// }
-
-// // worker
-// function* handleChangeSearchSaga(action) {
-//   yield put(searchSkillsRequest(action.payload.search));
-// }
-
 // worker;
 function* handleSearchProductsSaga(action) {
-  //console.log("=======", action.type);
   try {
     const retryCount = 1;
     const retryDelay = 1 * 1000;
@@ -113,13 +88,6 @@ function* handleSearchProductSaga(action) {
   }
 }
 
-
-
-// // watcher
-// function* watchChangeSearchSaga() {
-//   yield debounce(100, filterChangeSearchAction, handleChangeSearchSaga);
-// }
-
 // watcher
 function* watchListProductsSaga() {
   yield takeLatest(LIST_CATALOG_REQUEST, handleSearchProductsSaga);
@@ -136,7 +104,6 @@ function* watchHitsSaga() {
 function* watchProductSaga() {
   yield takeLatest(PRODUCT_REQUEST, handleSearchProductSaga);
 }
-
 
 export default function* saga() {
   yield spawn(watchListProductsSaga);

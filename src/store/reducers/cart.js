@@ -1,26 +1,20 @@
 import {
-  CART_REQUEST,
-  CART_SUCCESS,
-  CART_ERROR,
   CART_TOTALCOST,
   CART_ORDER,
-  ADD_CART_REQUEST,
   ADD_CART_SUCCESS,
-  ADD_CART_ERROR,
-  DELETE_CART_REQUEST,
   DELETE_CART_SUCCESS,
-  DELETE_CART_ERROR,
 } from "../actions/actionTypes";
 
-const cartLocalStorage = JSON.parse(localStorage.getItem('cart'));
+const cartLocalStorage = JSON.parse(localStorage.getItem("cart"));
 // console.log('cartLocalStorage', cartLocalStorage);
 
-const initialState = cartLocalStorage ? cartLocalStorage :  
-{
-  cart: [],
-  totalCost: 0,
-  order: null,
-};
+const initialState = cartLocalStorage
+  ? cartLocalStorage
+  : {
+      cart: [],
+      totalCost: 0,
+      order: null,
+    };
 
 // console.log('initialState', initialState);
 
@@ -32,15 +26,18 @@ export default function cartReducer(state = initialState, action) {
       const cart = action.payload;
       return { ...state, cart, loading: false, error: null };
     case DELETE_CART_SUCCESS:
-      console.log('del cart', action.payload.id);
-      return {  ...state, cart: cart.filter((item) => item.id !== action.payload.id) };
+      // console.log("del cart", action.payload.id);
+      return {
+        ...state,
+        cart: cart.filter((item) => item.id !== action.payload.id),
+      };
     case CART_TOTALCOST:
       // console.log('CART_TOTALCOST', action.payload.sum);
-      return {  ...state, totalCost: action.payload.sum };
+      return { ...state, totalCost: action.payload.sum };
     case CART_ORDER:
-      console.log('RED CART_ORDER', action.payload);
-      const order = action.payload
-      return {  ...state, order };
+      // console.log("RED CART_ORDER", action.payload);
+      const order = action.payload;
+      return { ...state, order };
     default:
       // console.log("CART reduser DEFAULT", state);
       return state;

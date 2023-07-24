@@ -14,17 +14,14 @@ import {
   PRODUCT_REQUEST,
   PRODUCT_SUCCESS,
   PRODUCT_ERROR,
-  CART_REQUEST,
-  CART_SUCCESS,
-  CART_ERROR,
   CART_TOTALCOST,
   CART_ORDER,
-  ADD_CART_REQUEST,
+  // ADD_CART_REQUEST,
   ADD_CART_SUCCESS,
-  ADD_CART_ERROR,
-  DELETE_CART_REQUEST,
+  // ADD_CART_ERROR,
+  // DELETE_CART_REQUEST,
   DELETE_CART_SUCCESS,
-  DELETE_CART_ERROR,
+  // DELETE_CART_ERROR,
   ORDER_REQUEST,
   ORDER_SUCCESS,
   ORDER_ERROR,
@@ -92,7 +89,7 @@ export function cartTotal(sum) {
   return { type: CART_TOTALCOST, payload: { sum } };
 }
 export function cartOrder(order) {
-  console.log("CART_ORDER", order);
+  // console.log("CART_ORDER", order);
   return { type: CART_ORDER, payload: order };
 }
 
